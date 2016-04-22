@@ -8,11 +8,12 @@ app = Flask(__name__)
 
 
 class Courses:
-    def __init__(self, year, season, number, section_title,
+    def __init__(self, year, season, department, number, section_title,
                  units, instructors, meetings, core, seats,
                  enrolled, reserved, reserved_open, waitlisted):
         self.year = year
         self.season = season
+        self.department = department
         self.number = number
         self.section_title = section_title
         self.units = units
@@ -29,10 +30,10 @@ def get_data():
     class_list = []
     placeholder = []
     with open(join_path(dirname(__file__), 'counts.tsv')) as fd:
-        for i in range(13):
+        for i in range(14):
             placeholder.append('-')
         for line in fd.read().splitlines():
-            placeholder = [word for word in line.split("\t") if word is not ""]
+            placeholder = line.split("\t")
             placeholder[3:5] = [' '.join(placeholder[3:5])]
             placeholder[-1] = placeholder[-1][:-1]
             year = placeholder[0]
@@ -50,8 +51,8 @@ def get_data():
             reserved_open = placeholder[12]
             waitlisted = placeholder[13]
             class_list.append(Courses(year, season, department, number, section_title, units,
-                                   instructors, meetings, core, seats, enrolled,
-                                   reserved, reserved_open, waitlisted))
+                                      instructors, meetings, core, seats, enrolled,
+                                      reserved, reserved_open, waitlisted))
     return sorted(class_list, key=(lambda x: x.section_title))
 
 # @app.route('/directory')
