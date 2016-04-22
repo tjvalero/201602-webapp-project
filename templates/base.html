@@ -2,13 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Course Counts</title>
+    <title>Course Counts</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 </head>
 <body>
+    <h4>Course Counts</h4>
     <img src="/images/oxy-seal.png" style="width:150px; height:150px;">
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">DROPDOWN</button>
+        <div id="myDropdown" class="dropdown-content">
+            {% set count = 0 %}
+            {% for section_title in class_list %}
+                {%  set count = count + 1 %}
+                <a href="#">{{ count }}</a>
+        </div>
+    </div>
     My Course Counts
 </body>
 </html>
+

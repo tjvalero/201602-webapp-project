@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ courses.section_title }}</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="center">
+        <div id="class_info">
+            <p>Year: {{  courses.year }}</p>
+            <p>Semester: {{  courses.season }}</p>
+            <p>Department: {{  courses.department }}</p>
+            <p>course Number: {{  courses.number }}</p>
+            <p>Units: {{  courses.units }}</p>
+            <p>Instructors: {{  courses.instructors }}</p>
+            <p>Time and Location: {{  courses.meetings }}</p>
+            <p>Core: {{  courses.core }}</p>
+            <p>Seats{{  courses.seats }}</p>
+            <p>Enrolled: {{  courses.enrolled }}</p>
+            <p>Reserved: {{  courses.reserved }}</p>
+            <p>Reserved Open: {{  courses.reserved_open }}</p>
+            <p>Waitlisted: {{  courses.waitlisted }}</p>
+            <a href="/">Back</a>
+        </div>
+    </div>
+</body>
+</html>
