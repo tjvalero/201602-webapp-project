@@ -6,6 +6,26 @@ from flask import Flask, render_template, send_from_directory, request
 
 app = Flask(__name__)
 
+# # hey justin
+# CORE_ABBRS = {
+#     'CPAF': 'Core Africa and The Middle East',
+#     'CPAS': 'Core Central/South/East Asia',
+#     'CPEU': 'Core Europe',
+#     'CPFA': 'Core Fine Arts',
+#     'CFAP': 'Core Fine Arts Partial',
+#     'CPGC': 'Core Global Connections',
+#     'CPIC': 'Core Intercultural',
+#     'CPLS': 'Core Laboratory Science',
+#     'CPLA': 'Core Latin America',
+#     'CMSP': 'Core Math/Science Partial',
+#     'CPMS': 'Core Mathematics/Science',
+#     'CPPE': 'Core Pre-1800',
+#     'CPRF': 'Core Regional Focus',
+#     'CPUS': 'Core United States',
+#     'CPUD': 'Core United States Diversity',
+#     'CICP': 'Core Program (obsolete)',
+#     'CUSP': 'Core United States (obsolete)',
+#     'CAFP': 'Core Africa (obsolete)',
 
 class Courses:
     def __init__(self, year, season, department, number, section, title,
@@ -32,37 +52,40 @@ def get_data():
     # With each line, it splits the words by tabs (\t)
     class_list = []
     placeholder = []
+    first_loop = False
     with open(join_path(dirname(__file__), 'counts.tsv')) as fd:
         for i in range(15):
             placeholder.append('-')
         for line in fd.read().splitlines():
-            placeholder = line.split("\t")
+            if first_loop:
+                placeholder = line.split("\t")
 
-            # This is to get rid of the "\n" at the end of every line
-            placeholder[-1] = placeholder[-1][:-1]
+                # This is to get rid of the "\n" at the end of every line
+                placeholder[-1] = placeholder[-1][:-1]
 
-            # Assigning pieces of placeholder list with respective names
-            year = placeholder[0]
-            season = placeholder[1]
-            department = placeholder[2]
-            number = placeholder[3]
-            section = placeholder[4]
-            title = placeholder[5]
-            units = placeholder[6]
-            instructors = placeholder[7]
-            meetings = placeholder[8]
-            core = placeholder[9]
-            seats = placeholder[10]
-            enrolled = placeholder[11]
-            reserved = placeholder[12]
-            reserved_open = placeholder[13]
-            waitlisted = placeholder[14]
-            # I then place each instance of Courses into a list called class_list which I
-            # use later to loop through and gather specific information.
-            class_list.append(Courses(year, season, department, number, section, title, units,
-                                      instructors, meetings, core, seats, enrolled,
-                                      reserved, reserved_open, waitlisted))
-    return sorted(class_list, key=(lambda x: x.title))
+                # Assigning pieces of placeholder list with respective names
+                year = placeholder[0]
+                season = placeholder[1]
+                department = placeholder[2]
+                number = placeholder[3]
+                section = placeholder[4]
+                title = placeholder[5]
+                units = placeholder[6]
+                instructors = placeholder[7]
+                meetings = placeholder[8]
+                core = placeholder[9]
+                seats = placeholder[10]
+                enrolled = placeholder[11]
+                reserved = placeholder[12]
+                reserved_open = placeholder[13]
+                waitlisted = placeholder[14]
+                # I then place each instance of Courses into a list called class_list which I
+                # use later to loop through and gather specific information.
+                class_list.append(Courses(year, season, department, number, section, title, units,
+                                          instructors, meetings, core, seats, enrolled,
+                                          reserved, reserved_open, waitlisted))
+            first_loop = True
+    return class_list
 
 # This is the first page, no information is needed from python.
 @app.route('/')

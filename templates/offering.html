@@ -3,31 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Options</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <!--I am looping through my "its_a_match" list which only includes
 instances of courses that fit both the year and the season selections.
 Because they are instances, I can access each aspect of the courses by
 doing class.(attribute)-->
-<table style="width:100%">
-  <tr>
-    <td>Year</td>
-    <td>Season</td>
-    <td>Department</td>
-    <td>Number</td>
-    <td>Section</td>
-    <td>Title</td>
-    <td>Units</td>
-    <td>Instructors</td>
-    <td>Meetings</td>
-    <td>Core</td>
-    <td>Seats</td>
-    <td>Enrolled</td>
-    <td>Reserved</td>
-    <td>Reserved Open</td>
-    <td>Waitlisted</td>
-  </tr>
+
+<table class="table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Season</th>
+            <th>Department</th>
+            <th>Number</th>
+            <th>Section</th>
+            <th>Title</th>
+            <th>Units</th>
+            <th>Instructors</th>
+            <th>Meetings</th>
+            <th>Core</th>
+            <th>Seats</th>
+            <th>Enrolled</th>
+            <th>Reserved</th>
+            <th>Reserved Open</th>
+            <th>Waitlisted</th>
+        </tr>
+    </thead>
+  <tbody>
   {% for class in its_a_match %}
   <tr>
     <td>{{ class.year }}</td>
@@ -47,6 +51,8 @@ doing class.(attribute)-->
     <td>{{ class.waitlisted }}</td>
   </tr>
   {% endfor %}
+  </tbody>
+
 
 </table>
 
