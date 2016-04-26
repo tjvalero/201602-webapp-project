@@ -10,8 +10,8 @@
 <body>
     <p><strong>Welcome to Occidental College Course Counts</strong></p>
     <p>Please choose a year.</p>
-    <form>
-    <select name="select_year">
+    <form method="get" action="/year_season">
+    <select name="year">
             <option value="2010">2010</option>
             <option value="2011">2011</option>
             <option value="2012">2012</option>
@@ -21,14 +21,14 @@
             <option value="2016">2016</option>
             <option value="2017">2017</option>
         </select>
-        <p>Please choose a semester.</p>
-    <select name="select_semester">
-            <option value="Fall">Fall</option>
-            <option value="Spring">Spring</option>
-            <option value="Summer">Summer</option>
+        <p>Please choose a season.</p>
+    <select name="season">
+            <option value="fall">Fall</option>
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
         </select>
-        <p><input class="button" type="reset" value="Clear" /> <input class="button" type="submit" value="Submit" />
+        <p><input class="button" type="submit" value="Search" />
         </p>
-</form>
+    </form>
 </body>
 </html>
