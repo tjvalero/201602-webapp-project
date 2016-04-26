@@ -82,15 +82,21 @@ def view_season():
     print('list_of_courses', class_list)
     # Go through ALL instances of courses and check if selected
     # year equals course year, then add it to a list if it does
-    for class_instance in class_list:
-        if year == class_instance.year:
-            same_year.append(class_instance)
-    print('same_year', same_year)
+    if year == "Select...":
+        same_year = class_list
+    else:
+        for class_instance in class_list:
+            if year == class_instance.year:
+                same_year.append(class_instance)
+        print('same_year', same_year)
     # With our list of classes with correct year, go through
     # this list and check if selected season equals course season
-    for class_instance in same_year:
-        if season == class_instance.season:
-            its_a_match.append(class_instance)
+    if season == "Select...":
+        its_a_match = same_year
+    else:
+        for class_instance in same_year:
+            if season == class_instance.season:
+                its_a_match.append(class_instance)
     print('its_a_match', its_a_match)
     # year=year and season=season are not currently used on this page, but I am including them
     # in case you guys want to add a title that displays what options were picked.
