@@ -11,7 +11,7 @@
     <p><strong>Welcome to Occidental College Course Counts</strong></p>
     <p>Please choose a year.</p>
     <form method="get" action="/year_season">
-    <select name="year">
+    <select name="year" id="year">
             <option>Select...</option>
             <option value="2010">2010</option>
             <option value="2011">2011</option>
@@ -23,14 +23,25 @@
             <option value="2017">2017</option>
         </select>
         <p>Please choose a season.</p>
-    <select name="season">
+    <select name="season" id="season">
             <option>Select...</option>
             <option value="fall">Fall</option>
             <option value="spring">Spring</option>
             <option value="summer">Summer</option>
         </select>
+    <p>Please choose a professor.</p>
+    <select name="instructor" id="instructor">
+        <option>Select...</option>
+        {% for instructor in list_of_instructor %}
+        <option value="{{ instructor }}" >{{ instructor }}</option>
+        {% endfor %}
+    </select>
         <p><input class="button" type="submit" value="Search" />
         </p>
+    <img src="/images/justin.jpg" alt="cute picture of justin" style="width:300px;height:300px;">
+
+
     </form>
 </body>
 </html>
+

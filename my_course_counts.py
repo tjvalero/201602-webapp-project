@@ -29,7 +29,7 @@ app = Flask(__name__)
 
 class Courses:
     def __init__(self, year, season, department, number, section, title,
-                 units, instructors, meetings, core, seats,
+                 units, instructor, meetings, core, seats,
                  enrolled, reserved, reserved_open, waitlisted):
         self.year = year
         self.season = season
@@ -38,7 +38,7 @@ class Courses:
         self.section = section
         self.title = title
         self.units = units
-        self.instructors = instructors
+        self.instructor = instructor
         self.meetings = meetings
         self.core = core
         self.seats = seats
@@ -46,6 +46,15 @@ class Courses:
         self.reserved = reserved
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
+
+# I borrowed kate's code :-D
+def get_instructor_list():
+    list_of_instructor = []
+    course_data = get_data()
+    for instance in course_data:
+        if instance.instructor not in list_of_instructor:
+            list_of_instructor.append(instance.instructor)
+    return sorted(list_of_instructor)
 
 def get_data():
     # This function opens the counts.tsv file and reads line by line.
@@ -71,7 +80,8 @@ def get_data():
                 section = placeholder[4]
                 title = placeholder[5]
                 units = placeholder[6]
-                instructors = placeholder[7]
+                instructor = placeholder[7].split(';')
+                instructor = ", ".join(instructor)
                 meetings = placeholder[8]
                 core = placeholder[9]
                 seats = placeholder[10]
@@ -82,7 +92,7 @@ def get_data():
                 # I then place each instance of Courses into a list called class_list which I
                 # use later to loop through and gather specific information.
                 class_list.append(Courses(year, season, department, number, section, title, units,
-                                          instructors, meetings, core, seats, enrolled,
+                                          instructor, meetings, core, seats, enrolled,
                                           reserved, reserved_open, waitlisted))
             first_loop = True
     return class_list
@@ -90,7 +100,8 @@ def get_data():
 # This is the first page, no information is needed from python.
 @app.route('/')
 def view_root():
-    return render_template('year_directory.html')
+    list_of_instructor = get_instructor_list()
+    return render_template('year_directory.html', list_of_instructor=list_of_instructor)
 
 # This is the second page after the two selections have been made.
 @app.route('/year_season')
@@ -99,7 +110,9 @@ def view_season():
     # Everything after the '?' in the URL are aspects that can be grabbed using args as seen in the next two lines.
     year = request.args.get('year')
     season = request.args.get('season')
+    instructor = request.args.get('instructor')
     same_year = []
+    same_season = []
     its_a_match = []
     class_list = get_data()
     print('list_of_courses', class_list)
@@ -115,12 +128,21 @@ def view_season():
     # With our list of classes with correct year, go through
     # this list and check if selected season equals course season
     if season == "Select...":
-        its_a_match = same_year
+        same_season = same_year
     else:
         for class_instance in same_year:
             if season == class_instance.season:
+                same_season.append(class_instance)
+    if instructor == "Select...":
+        its_a_match = same_season
+    else:
+        for class_instance in same_season:
+            if class_instance.instructor.find(instructor) != -1:
                 its_a_match.append(class_instance)
+
+
     print('its_a_match', its_a_match)
+
     # year=year and season=season are not currently used on this page, but I am including them
     # in case you guys want to add a title that displays what options were picked.
     return render_template('offering.html', year=year, season=season, its_a_match=its_a_match)
