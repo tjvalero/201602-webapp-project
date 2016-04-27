@@ -2,27 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ courses.section_title }}</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Options</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="center">
-        <div id="class_info">
-            <p>Year: {{  courses.year }}</p>
-            <p>Semester: {{  courses.season }}</p>
-            <p>Department: {{  courses.department }}</p>
-            <p>course Number: {{  courses.number }}</p>
-            <p>Units: {{  courses.units }}</p>
-            <p>Instructors: {{  courses.instructors }}</p>
-            <p>Time and Location: {{  courses.meetings }}</p>
-            <p>Core: {{  courses.core }}</p>
-            <p>Seats{{  courses.seats }}</p>
-            <p>Enrolled: {{  courses.enrolled }}</p>
-            <p>Reserved: {{  courses.reserved }}</p>
-            <p>Reserved Open: {{  courses.reserved_open }}</p>
-            <p>Waitlisted: {{  courses.waitlisted }}</p>
-            <a href="/">Back</a>
-        </div>
-    </div>
+<!--I am looping through my "its_a_match" list which only includes
+instances of courses that fit both the year and the season selections.
+Because they are instances, I can access each aspect of the courses by
+doing class.(attribute)-->
+
+<table class="table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Season</th>
+            <th>Department</th>
+            <th>Number</th>
+            <th>Section</th>
+            <th>Title</th>
+            <th>Units</th>
+            <th>Instructors</th>
+            <th>Meetings</th>
+            <th>Core</th>
+            <th>Seats</th>
+            <th>Enrolled</th>
+            <th>Reserved</th>
+            <th>Reserved Open</th>
+            <th>Waitlisted</th>
+        </tr>
+    </thead>
+  <tbody>
+  {% for class in its_a_match %}
+  <tr>
+    <td>{{ class.year }}</td>
+    <td>{{ class.season }}</td>
+    <td>{{ class.department }}</td>
+    <td>{{ class.number }}</td>
+    <td>{{ class.section }}</td>
+    <td>{{ class.title }}</td>
+    <td>{{ class.units }}</td>
+    <td>{{ class.instructors }}</td>
+    <td>{{ class.meetings }}</td>
+    <td>{{ class.core }}</td>
+    <td>{{ class.seats }}</td>
+    <td>{{ class.enrolled }}</td>
+    <td>{{ class.reserved }}</td>
+    <td>{{ class.reserved_open }}</td>
+    <td>{{ class.waitlisted }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+
+
+</table>
+
+<!--This was before I implemented a table-->
+<!--{% for class in its_a_match %}-->
+    <!--<p>Year: {{ class.year }}-->
+    <!--Season: {{ class.season }}-->
+    <!--Department: {{ class.department }}-->
+    <!--Number: {{ class.number }}-->
+    <!--Section: {{ class.section }}-->
+    <!--Title: {{ class.title }}-->
+    <!--Units: {{ class.units }}-->
+    <!--Instructors: {{ class.instructors }}-->
+    <!--Meetings: {{ class.meetings }}-->
+    <!--Core: {{ class.core }}-->
+    <!--Seats: {{ class.seats }}-->
+    <!--Enrolled: {{ class.enrolled }}-->
+    <!--Reserved: {{ class.reserved }}-->
+    <!--Reserved Open: {{ class.reserved_open }}-->
+    <!--Waitlisted: {{ class.waitlisted }}</p>-->
+    <!--{% endfor %}-->
 </body>
 </html>
