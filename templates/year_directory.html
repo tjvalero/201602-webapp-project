@@ -8,13 +8,12 @@
     <script src="/js/main.js"></script>
 </head>
 <body>
-        <div id="social-media-icons">
+    <div id="social-media-icons">
         <a href="https://www.facebook.com/occidental/"><img src="images/facebook.png"/></a>
         <a href="https://twitter.com/OxyNews?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><img src="images/twitter.png"/></a>
         <a href="http://www.ratemyprofessors.com/"><img src="images/ratemyprof.jpg"/></a>
         </div>
-
-    <p id="title"><strong>Welcome to Occidental College Course Counts</strong></p>
+    <p><strong>Welcome to Occidental College Course Counts</strong></p>
     <p>Please choose a year.</p>
     <form method="get" action="/year_season">
         <div class="directory">
@@ -43,15 +42,20 @@
         <option value="{{ instructor }}" >{{ instructor }}</option>
         {% endfor %}
         </select>
+        <p>Search courses by department:</p>
+        <select name="department" id="department">
+            <option>All Departments</option>
+            {% for department in list_of_dept %}
+            <option value="{{ department }}" >{{ department }}</option>
+            {% endfor %}
+        </select>
         </div>
         <p><input class="button" type="submit" value="Search" />
         </p>
 
 
-        <img id="oxylogo" src="images/occidental.jpg">
-
-
     </form>
+    <img id="oxylogo" src="images/occidental.jpg">
 </body>
 </html>
 
