@@ -229,7 +229,7 @@ def view_season():
     class_list = get_data()
     # Go through ALL instances of courses and check if selected
     # year equals course year, then add it to a list if it does
-    if year == "Select...":
+    if year == "All Years":
         same_year = class_list
     else:
         for class_instance in class_list:
@@ -237,7 +237,7 @@ def view_season():
                 same_year.append(class_instance)
     # With our list of classes with correct year, go through
     # this list and check if selected season equals course season
-    if season == "Select...":
+    if season == "All Semesters":
         same_season = same_year
     else:
         for class_instance in same_year:
