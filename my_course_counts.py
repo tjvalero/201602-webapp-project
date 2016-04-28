@@ -7,26 +7,26 @@ from flask import Flask, render_template, send_from_directory, request
 app = Flask(__name__)
 
 # # hey justin
-# CORE_ABBRS = {
-#     'CPAF': 'Core Africa and The Middle East',
-#     'CPAS': 'Core Central/South/East Asia',
-#     'CPEU': 'Core Europe',
-#     'CPFA': 'Core Fine Arts',
-#     'CFAP': 'Core Fine Arts Partial',
-#     'CPGC': 'Core Global Connections',
-#     'CPIC': 'Core Intercultural',
-#     'CPLS': 'Core Laboratory Science',
-#     'CPLA': 'Core Latin America',
-#     'CMSP': 'Core Math/Science Partial',
-#     'CPMS': 'Core Mathematics/Science',
-#     'CPPE': 'Core Pre-1800',
-#     'CPRF': 'Core Regional Focus',
-#     'CPUS': 'Core United States',
-#     'CPUD': 'Core United States Diversity',
-#     'CICP': 'Core Program (obsolete)',
-#     'CUSP': 'Core United States (obsolete)',
-#     'CAFP': 'Core Africa (obsolete)',
-
+CORE_ABBRS = {
+    'CPAF': 'Core Africa and The Middle East',
+    'CPAS': 'Core Central/South/East Asia',
+    'CPEU': 'Core Europe',
+    'CPFA': 'Core Fine Arts',
+    'CFAP': 'Core Fine Arts Partial',
+    'CPGC': 'Core Global Connections',
+    'CPIC': 'Core Intercultural',
+    'CPLS': 'Core Laboratory Science',
+    'CPLA': 'Core Latin America',
+    'CMSP': 'Core Math/Science Partial',
+    'CPMS': 'Core Mathematics/Science',
+    'CPPE': 'Core Pre-1800',
+    'CPRF': 'Core Regional Focus',
+    'CPUS': 'Core United States',
+    'CPUD': 'Core United States Diversity',
+    'CICP': 'Core Program (obsolete)',
+    'CUSP': 'Core United States (obsolete)',
+    'CAFP': 'Core Africa (obsolete)',
+}
 DEPARTMENT_ABBRS = {
     'ABAR': 'Occidental-in-Argentina',
     'ABAS': 'Occidental-in-Austria',
@@ -152,6 +152,12 @@ def get_dept_list():
         list_of_dept.append(abbreviation)
     return sorted(list_of_dept)
 
+def get_core_list():
+    list_of_core = []
+    for abbreviation in CORE_ABBRS.keys():
+        list_of_core.append(abbreviation)
+    return sorted(list_of_core)
+
 def get_data():
     # This function opens the counts.tsv file and reads line by line.
     # With each line, it splits the words by tabs (\t)
@@ -199,9 +205,11 @@ def get_data():
 def view_root():
     list_of_instructor = get_instructor_list()
     list_of_dept = get_dept_list()
-    return render_template('year_directory.html', list_of_instructor=list_of_instructor, list_of_dept=list_of_dept)
+    list_of_core = get_core_list()
+    return render_template('year_directory.html', list_of_instructor=list_of_instructor, list_of_dept=list_of_dept,
+                           list_of_core = list_of_core)
 
-# This is the second page after the two selections have been made.
+# This is the second page after the selections have been made.
 @app.route('/year_season')
 def view_season():
     # As youll see, the URL will look something like "http://127.0.0.1:5000/year_season?year=2010&season=fall"
@@ -210,9 +218,11 @@ def view_season():
     season = request.args.get('season')
     instructor = request.args.get('instructor')
     department = request.args.get('department')
+    core = request.args.get('core')
     same_year = []
     same_season = []
     same_instructor = []
+    same_department = []
     its_a_match = []
     class_list = get_data()
     # Go through ALL instances of courses and check if selected
@@ -231,7 +241,7 @@ def view_season():
         for class_instance in same_year:
             if season == class_instance.season:
                 same_season.append(class_instance)
-    if instructor == "Select...":
+    if instructor == "All Professors":
         same_instructor = same_season
     else:
         for class_instance in same_season:
@@ -239,10 +249,17 @@ def view_season():
                 same_instructor.append(class_instance)
     # Continue the process, go through list and filter the list by chosen department
     if department == "All Departments":
-        its_a_match = same_instructor
+        same_department = same_instructor
     else:
         for class_instance in same_instructor:
             if class_instance.department.find(department) != -1:
+                same_department.append(class_instance)
+    # Filter again by Core...
+    if core == "Show All Classes":
+        its_a_match = same_department
+    else:
+        for class_instance in same_department:
+            if core in class_instance.core:
                 its_a_match.append(class_instance)
     # year=year and season=season are not currently used on this page, but I am including them
     # in case you guys want to add a title that displays what options were picked.

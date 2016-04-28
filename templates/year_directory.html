@@ -35,18 +35,25 @@
             <option value="spring">Spring</option>
             <option value="summer">Summer</option>
         </select>
-        <p>Please choose a professor.</p>
+        <p>Filter courses by professor:</p>
         <select name="instructor" id="instructor">
-        <option>Select...</option>
+        <option>All Professors</option>
         {% for instructor in list_of_instructor %}
         <option value="{{ instructor }}" >{{ instructor }}</option>
         {% endfor %}
         </select>
-        <p>Search courses by department:</p>
+        <p>Filter courses by department:</p>
         <select name="department" id="department">
             <option>All Departments</option>
             {% for department in list_of_dept %}
             <option value="{{ department }}" >{{ department }}</option>
+            {% endfor %}
+        </select>
+        <p>Filter courses by core requirements:</p>
+        <select name="core" id="core">
+            <option>Show All Classes</option>
+            {% for core in list_of_core %}
+            <option value="{{ core }}" >{{ core }}</option>
             {% endfor %}
         </select>
         </div>
