@@ -55,7 +55,8 @@
             {% for core in list_of_core %}
             <option value="{{ core }}" >{{ core }}</option>
             {% endfor %}
-        </select>
+        </select><br><br>
+        <input type="checkbox" class="checkbox" name="open_only" id="open_only" value="yes" /> Only show courses with open seats<br/>
         </div>
         <p id="button"><input class="button" type="submit" value="Search" />
         </p>
