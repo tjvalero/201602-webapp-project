@@ -31,3 +31,15 @@ body    {
     display: block;
     margin: 0 auto;
 }
+
+select {
+    width: 150px;
+}
+
+#dropdowntext   {
+    text-align: center;
+}
+
+#button {
+    text-align: center;
+}
