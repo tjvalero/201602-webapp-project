@@ -37,6 +37,13 @@
         <option value="{{ instructor }}" >{{ instructor }}</option>
         {% endfor %}
         </select>
+        <p>Search courses by department:</p>
+        <select name="department" id="department">
+            <option>All Departments</option>
+            {% for department in list_of_dept %}
+            <option value="{{ department }}" >{{ department }}</option>
+            {% endfor %}
+        </select>
         </div>
         <p><input class="button" type="submit" value="Search" />
         </p>

@@ -146,6 +146,12 @@ def get_instructor_list():
             list_of_instructor.append(instance.instructor)
     return sorted(list_of_instructor)
 
+def get_dept_list():
+    list_of_dept = []
+    for abbreviation in DEPARTMENT_ABBRS.keys():
+        list_of_dept.append(abbreviation)
+    return sorted(list_of_dept)
+
 def get_data():
     # This function opens the counts.tsv file and reads line by line.
     # With each line, it splits the words by tabs (\t)
@@ -192,7 +198,8 @@ def get_data():
 @app.route('/')
 def view_root():
     list_of_instructor = get_instructor_list()
-    return render_template('year_directory.html', list_of_instructor=list_of_instructor)
+    list_of_dept = get_dept_list()
+    return render_template('year_directory.html', list_of_instructor=list_of_instructor, list_of_dept=list_of_dept)
 
 # This is the second page after the two selections have been made.
 @app.route('/year_season')
@@ -202,8 +209,10 @@ def view_season():
     year = request.args.get('year')
     season = request.args.get('season')
     instructor = request.args.get('instructor')
+    department = request.args.get('department')
     same_year = []
     same_season = []
+    same_instructor = []
     its_a_match = []
     class_list = get_data()
     # Go through ALL instances of courses and check if selected
@@ -223,12 +232,18 @@ def view_season():
             if season == class_instance.season:
                 same_season.append(class_instance)
     if instructor == "Select...":
-        its_a_match = same_season
+        same_instructor = same_season
     else:
         for class_instance in same_season:
             if class_instance.instructor.find(instructor) != -1:
+                same_instructor.append(class_instance)
+    # Continue the process, go through list and filter the list by chosen department
+    if department == "All Departments":
+        its_a_match = same_instructor
+    else:
+        for class_instance in same_instructor:
+            if class_instance.department.find(department) != -1:
                 its_a_match.append(class_instance)
-
     # year=year and season=season are not currently used on this page, but I am including them
     # in case you guys want to add a title that displays what options were picked.
     return render_template('offering.html', year=year, season=season, its_a_match=its_a_match)
