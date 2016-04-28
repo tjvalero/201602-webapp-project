@@ -13,3 +13,22 @@ td {
     font-size: .75em;
     text-align: left;
 }
+
+#title {
+    font-size: 225%;
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+#social-media-icons {
+    float: right;
+}
+
+body    {
+    background-color: #F5BD6E;
+}
+
+#oxylogo    {
+    display: block;
+    margin: 0 auto;
+}
+
