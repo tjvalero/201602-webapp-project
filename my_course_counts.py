@@ -226,10 +226,12 @@ def view_season():
     instructor = request.args.get('instructor')
     department = request.args.get('department')
     core = request.args.get('core')
+    open_only = request.args.get('open_only')
     same_year = []
     same_season = []
     same_instructor = []
     same_department = []
+    same_core = []
     its_a_match = []
     class_list = get_data()
     # Go through instances of Courses and check if year
@@ -262,11 +264,21 @@ def view_season():
                 same_department.append(class_instance)
     if core == "Select...":
         its_a_match = same_department
+    # Filter again by Core...
+    if core == "Show All Classes":
+        same_core = same_department
     else:
         for class_instance in same_department:
             if core in class_instance.core:
+                same_core.append(class_instance)
+    if open_only == 'yes':
+        for class_instance in same_core:
+            if class_instance.enrolled < class_instance.seats:
                 its_a_match.append(class_instance)
     # year and season are not currently used on this page, but I am including them
+    else:
+        its_a_match = same_core
+    # year=year and season=season are not currently used on this page, but I am including them
     # in case you guys want to add a title that displays what options were picked.
     return render_template('offering.html', year=year, season=season, its_a_match=its_a_match)
 
