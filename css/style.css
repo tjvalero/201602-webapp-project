@@ -14,32 +14,83 @@ td {
     text-align: left;
 }
 
-#title {
-    font-size: 225%;
-    font-family: "Arial Black", Gadget, sans-serif;
+
+/*#icons {*/
+    /*position: fixed;*/
+    /*bottom: 150px;*/
+    /*right: 150px;*/
+    /*width: .25em;*/
+    /*height: .25em;*/
+/*}*/
+
+#facebook {
+    position: fixed;
+    /*width: 20px;*/
+    /*height: 50px;*/
+    bottom: 20px;
+    right: 30px;
 }
 
-#social-media-icons {
-    float: right;
+#twitter {
+    position: fixed;
+    /*width: 20px;*/
+    /*height: 20px;*/
+    bottom: 20px;
+    right: 90px;
+}
+
+#rateprofessor {
+    position: fixed;
+    bottom: 30px;
+    right: 155px;
+}
+
+#title {
+    text-align: center;
+    /*padding: 5px;*/
+    /*border: 3px black;*/
+    line-height: 30%;
+    font-weight: bold;
+    font-size: 2em;
+    font-family: Verdana, 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
 }
 
 body    {
     background-color: #F5BD6E;
 }
 
-#oxylogo    {
-    display: block;
-    margin: 0 auto;
-}
-
 select {
     width: 150px;
 }
 
-#dropdowntext   {
-    text-align: center;
+#drop-down {
+    font-family: Verdana, 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    float: left;
+    padding-top: 25px;
+    padding-left: 60px;
+
 }
 
-#button {
-    text-align: center;
+#oxylogo    {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    margin-top: 200px;
+    transform: translate(-50%, -50%);
 }
+
+#secret_image {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    margin-top: 350px;
+    transform: translate(-50%, -50%);
+    vertical_align: middle;
+}
+
+#oxylogo:hover {
+    background-color: black;
+}
+

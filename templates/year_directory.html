@@ -8,61 +8,74 @@
     <script src="/js/main.js"></script>
 </head>
 <body>
-    <div id="social-media-icons">
-        <a href="https://www.facebook.com/occidental/"><img src="images/facebook.png"/></a>
-        <a href="https://twitter.com/OxyNews?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><img src="images/twitter.png"/></a>
-        <a href="http://www.ratemyprofessors.com/campusRatings.jsp?sid=719"><img src="images/ratemyprof.jpg"/></a>
-        </div>
-    <p id="title"><strong>Welcome to Occidental College Course Counts</strong></p>
-    <p id="dropdowntext">Please choose a year.</p>
+
+<div id="icons">
+<a id="facebook" href="https://www.facebook.com/occidental/"><img src="images/facebook29.png" height="50" width="'50"></a>
+<a id="twitter" href="https://twitter.com/OxyNews?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><img src="images/twitter-xxl.png" height="50" width="50"></a>
+<a id="rateprofessor" href="http://www.ratemyprofessors.com/campusRatings.jsp?sid=719"><img src="images/rate_my_professor.png" height="24" width="178" ></a>
+</div>
+
+<div id="title">
+<p>Occidental College</p>
+<p>Course Counts</p>
+</div>
+
+<div id="drop-down">
+
+    <p>Please choose a year.</p>
     <form method="get" action="/year_season">
-        <div align = "center" class="directory">
-        <select name="year" id="year">
-            <option>Select...</option>
-            <option value="2010">2010</option>
-            <option value="2011">2011</option>
-            <option value="2012">2012</option>
-            <option value="2013">2013</option>
-            <option value="2014">2014</option>
-            <option value="2015">2015</option>
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-        </select>
-        <p>Please choose a season.</p>
-        <select name="season" id="season">
-            <option>Select...</option>
-            <option value="fall">Fall</option>
-            <option value="spring">Spring</option>
-            <option value="summer">Summer</option>
-        </select>
-        <p>Filter courses by professor:</p>
-        <select name="instructor" id="instructor">
-        <option>All Professors</option>
-        {% for instructor in list_of_instructor %}
-        <option value="{{ instructor }}" >{{ instructor }}</option>
-        {% endfor %}
-        </select>
-        <p>Filter courses by department:</p>
-        <select name="department" id="department">
-            <option>All Departments</option>
-            {% for department in list_of_dept %}
-            <option value="{{ department }}" >{{ department }}</option>
-            {% endfor %}
-        </select>
-        <p>Filter courses by core requirements:</p>
-        <select name="core" id="core">
-            <option>Show All Classes</option>
-            {% for core in list_of_core %}
-            <option value="{{ core }}" >{{ core }}</option>
-            {% endfor %}
-        </select>
-        </div>
-        <p id="button"><input class="button" type="submit" value="Search" />
-        </p>
+    <select name="year" id="year">
+    <option>Select...</option>
+    <option value="2010">2010</option>
+    <option value="2011">2011</option>
+    <option value="2012">2012</option>
+    <option value="2013">2013</option>
+    <option value="2014">2014</option>
+    <option value="2015">2015</option>
+    <option value="2016">2016</option>
+    <option value="2017">2017</option>
+    </select>
+
+<p>Please choose a season.</p>
+    <select name="season" id="season">
+    <option>Select...</option>
+    <option value="fall">Fall</option>
+    <option value="spring">Spring</option>
+    <option value="summer">Summer</option>
+    </select>
+
+<p>Please choose an instructor.</p>
+    <select name="instructor" id="instructor">
+    <option>Select...</option>
+    {% for instructor in list_of_instructor %}
+    <option value="{{ instructor }}" >{{ instructor }}</option>
+    {% endfor %}
+    </select>
+
+<p>Please choose a department.</p>
+    <select name="department" id="department">
+    <option>Select...</option>
+    {% for department in list_of_dept %}
+    <option value="{{ department }}" >{{ department }}</option>
+    {% endfor %}
+    </select>
+
+<p>Please choose a core requirement.</p>
+    <select name="core" id="core">
+    <option>Select...</option>
+    {% for core in list_of_core %}
+    <option value="{{ core }}" >{{ core }}</option>
+    {% endfor %}
+    </select>
+
+<p id="button"><input class="button" type="submit" value="Search" /></p>
+
+</form>
+</div>
 
 
-    </form>
-    <img id="oxylogo" src="images/occidental.jpg">
+<a id="oxylogo" href="/secret_page"><img src="images/Occidental_png_version.png"></a>
+
 </body>
 </html>
 

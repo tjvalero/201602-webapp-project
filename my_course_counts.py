@@ -6,7 +6,7 @@ from flask import Flask, render_template, send_from_directory, request
 
 app = Flask(__name__)
 
-# # hey justin
+# List of cores taken from Justin's github
 CORE_ABBRS = {
     'CPAF': 'Core Africa and The Middle East',
     'CPAS': 'Core Central/South/East Asia',
@@ -27,6 +27,8 @@ CORE_ABBRS = {
     'CUSP': 'Core United States (obsolete)',
     'CAFP': 'Core Africa (obsolete)',
 }
+
+# List of departments taken from Justin's github
 DEPARTMENT_ABBRS = {
     'ABAR': 'Occidental-in-Argentina',
     'ABAS': 'Occidental-in-Austria',
@@ -137,7 +139,7 @@ class Courses:
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
 
-# I borrowed kate's code :-D
+# Gets list of instructors from get_data()
 def get_instructor_list():
     list_of_instructor = []
     course_data = get_data()
@@ -146,17 +148,20 @@ def get_instructor_list():
             list_of_instructor.append(instance.instructor)
     return sorted(list_of_instructor)
 
+# gets list of departments using Justin's DEPARTMENT_ABBRS
 def get_dept_list():
     list_of_dept = []
     for abbreviation in DEPARTMENT_ABBRS.keys():
         list_of_dept.append(abbreviation)
     return sorted(list_of_dept)
 
+# gets list of departments using Justin's CORE_ABBRS
 def get_core_list():
     list_of_core = []
     for abbreviation in CORE_ABBRS.keys():
         list_of_core.append(abbreviation)
     return sorted(list_of_core)
+
 
 def get_data():
     # This function opens the counts.tsv file and reads line by line.
@@ -191,6 +196,7 @@ def get_data():
                 reserved = placeholder[12]
                 reserved_open = placeholder[13]
                 waitlisted = placeholder[14]
+
                 # I then place each instance of Courses into a list called class_list which I
                 # use later to loop through and gather specific information.
                 class_list.append(Courses(year, season, department, number, section, title, units,
@@ -200,7 +206,7 @@ def get_data():
     return class_list
 
 
-# This is the first page, no information is needed from python.
+# This is the first page. Everything provided is used in drop down selectors.
 @app.route('/')
 def view_root():
     list_of_instructor = get_instructor_list()
@@ -212,8 +218,9 @@ def view_root():
 # This is the second page after the selections have been made.
 @app.route('/year_season')
 def view_season():
-    # As youll see, the URL will look something like "http://127.0.0.1:5000/year_season?year=2010&season=fall"
-    # Everything after the '?' in the URL are aspects that can be grabbed using args as seen in the next two lines.
+    # FOR GROUP:
+    # The URL will look something like "http://127.0.0.1:5000/year_season?year=2010&season=fall"
+    # Everything after the '?' in the URL are elements that can be grabbed using args as seen in the next five lines.
     year = request.args.get('year')
     season = request.args.get('season')
     instructor = request.args.get('instructor')
@@ -225,45 +232,47 @@ def view_season():
     same_department = []
     its_a_match = []
     class_list = get_data()
-    # Go through ALL instances of courses and check if selected
-    # year equals course year, then add it to a list if it does
+    # Go through instances of Courses and check if year
+    # equals course year, then add it to a list if it does.
     if year == "Select...":
         same_year = class_list
     else:
         for class_instance in class_list:
             if year == class_instance.year:
                 same_year.append(class_instance)
-    # With our list of classes with correct year, go through
-    # this list and check if selected season equals course season
+    # This does the same thing but this time using filtered list "same_year"
+    # And so on for the rest...
     if season == "Select...":
         same_season = same_year
     else:
         for class_instance in same_year:
             if season == class_instance.season:
                 same_season.append(class_instance)
-    if instructor == "All Professors":
+    if instructor == "Select...":
         same_instructor = same_season
     else:
         for class_instance in same_season:
             if class_instance.instructor.find(instructor) != -1:
                 same_instructor.append(class_instance)
-    # Continue the process, go through list and filter the list by chosen department
-    if department == "All Departments":
+    if department == "Select...":
         same_department = same_instructor
     else:
         for class_instance in same_instructor:
             if class_instance.department.find(department) != -1:
                 same_department.append(class_instance)
-    # Filter again by Core...
-    if core == "Show All Classes":
+    if core == "Select...":
         its_a_match = same_department
     else:
         for class_instance in same_department:
             if core in class_instance.core:
                 its_a_match.append(class_instance)
-    # year=year and season=season are not currently used on this page, but I am including them
+    # year and season are not currently used on this page, but I am including them
     # in case you guys want to add a title that displays what options were picked.
     return render_template('offering.html', year=year, season=season, its_a_match=its_a_match)
+
+@app.route('/secret_page')
+def view_secret():
+    return render_template('secret_page.html')
 
 # The functions below lets you access files in the css, js, and images folders.
 # You should not change them unless you know what you are doing.
