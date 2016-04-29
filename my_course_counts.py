@@ -265,7 +265,7 @@ def view_season():
     if core == "Select...":
         its_a_match = same_department
     # Filter again by Core...
-    if core == "Show All Classes":
+    if core == "Select...":
         same_core = same_department
     else:
         for class_instance in same_department:
