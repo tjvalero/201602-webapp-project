@@ -263,7 +263,7 @@ def view_season():
             if class_instance.department.find(department) != -1:
                 same_department.append(class_instance)
     if core == "Select...":
-        its_a_match = same_department
+        same_core = same_department
     # Filter again by Core...
     if core == "Select...":
         same_core = same_department
@@ -275,7 +275,6 @@ def view_season():
         for class_instance in same_core:
             if class_instance.enrolled < class_instance.seats:
                 its_a_match.append(class_instance)
-    # year and season are not currently used on this page, but I am including them
     else:
         its_a_match = same_core
     # year=year and season=season are not currently used on this page, but I am including them
