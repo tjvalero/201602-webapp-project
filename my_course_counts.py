@@ -271,7 +271,7 @@ def view_season():
                 same_core.append(class_instance)
     if open_only == 'yes':
         for class_instance in same_core:
-            if class_instance.enrolled < class_instance.seats:
+            if int(class_instance.enrolled) < int(class_instance.seats):
                 its_a_match.append(class_instance)
     else:
         its_a_match = same_core
