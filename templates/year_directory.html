@@ -21,11 +21,10 @@
 </div>
 
 <div id="drop-down">
-
-    <p>Please choose a year.</p>
+    <p>Filter by year:</p>
     <form method="get" action="/year_season">
     <select name="year" id="year">
-    <option>Select...</option>
+    <option>All</option>
     <option value="2010">2010</option>
     <option value="2011">2011</option>
     <option value="2012">2012</option>
@@ -36,33 +35,33 @@
     <option value="2017">2017</option>
     </select>
 
-<p>Please choose a season.</p>
+<p>Filter by semester:</p>
     <select name="season" id="season">
-    <option>Select...</option>
+    <option>All</option>
     <option value="fall">Fall</option>
     <option value="spring">Spring</option>
     <option value="summer">Summer</option>
     </select>
 
-<p>Please choose an instructor.</p>
+<p>Filter by professor:</p>
     <select name="instructor" id="instructor">
-    <option>Select...</option>
+    <option>All</option>
     {% for instructor in list_of_instructor %}
     <option value="{{ instructor }}" >{{ instructor }}</option>
     {% endfor %}
     </select>
 
-<p>Please choose a department.</p>
+<p>Filter by department:</p>
     <select name="department" id="department">
-    <option>Select...</option>
+    <option>All</option>
     {% for department in list_of_dept %}
     <option value="{{ department }}" >{{ department }}</option>
     {% endfor %}
     </select>
 
-<p>Please choose a core requirement.</p>
+<p>Filter by core requirement:</p>
     <select name="core" id="core">
-    <option>Select...</option>
+    <option>All</option>
     {% for core in list_of_core %}
     <option value="{{ core }}" >{{ core }}</option>
     {% endfor %}

@@ -236,7 +236,7 @@ def view_season():
     class_list = get_data()
     # Go through instances of Courses and check if year
     # equals course year, then add it to a list if it does.
-    if year == "Select...":
+    if year == "All":
         same_year = class_list
     else:
         for class_instance in class_list:
@@ -244,28 +244,26 @@ def view_season():
                 same_year.append(class_instance)
     # This does the same thing but this time using filtered list "same_year"
     # And so on for the rest...
-    if season == "Select...":
+    if season == "All":
         same_season = same_year
     else:
         for class_instance in same_year:
             if season == class_instance.season:
                 same_season.append(class_instance)
-    if instructor == "Select...":
+    if instructor == "All":
         same_instructor = same_season
     else:
         for class_instance in same_season:
             if class_instance.instructor.find(instructor) != -1:
                 same_instructor.append(class_instance)
-    if department == "Select...":
+    if department == "All":
         same_department = same_instructor
     else:
         for class_instance in same_instructor:
             if class_instance.department.find(department) != -1:
                 same_department.append(class_instance)
-    if core == "Select...":
-        same_core = same_department
     # Filter again by Core...
-    if core == "Select...":
+    if core == "All":
         same_core = same_department
     else:
         for class_instance in same_department:
